@@ -111,6 +111,9 @@ public class PreferencesDialog extends javax.swing.JDialog
         txtfLasercutterTags = new javax.swing.JTextField();
         txtfSupportedExtensions = new javax.swing.JTextField();
         lblSupportedExtensions = new javax.swing.JLabel();
+        pnlFacebook = new javax.swing.JPanel();
+        lblFabLabLocationFacebookId = new javax.swing.JLabel();
+        txtfFabLabLocationFacebookId = new javax.swing.JTextField();
         btOk = new javax.swing.JButton();
         btCancel = new javax.swing.JButton();
 
@@ -229,6 +232,38 @@ public class PreferencesDialog extends javax.swing.JDialog
 
         generalTab.addTab("Thingiverse", jPanel2);
 
+        pnlFacebook.setToolTipText(""); // NOI18N
+
+        lblFabLabLocationFacebookId.setText("FabLab location facebook id:");
+
+        txtfFabLabLocationFacebookId.setToolTipText("<html>Specify the id of your FabLab Facebook site. It will be referenced <br>\n in each of your posts. Leave empty to disable the referenciation. The id can be found in the URL<br>\nof the Facebook site, e.g. if your URL is https://www.facebook.com/pages/Fablab-Aachen/191850277562397 <br>\nenter 191850277562397 in this field.</html>"); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${preferences.fabLabLocationFacebookId}"), txtfFabLabLocationFacebookId, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        javax.swing.GroupLayout pnlFacebookLayout = new javax.swing.GroupLayout(pnlFacebook);
+        pnlFacebook.setLayout(pnlFacebookLayout);
+        pnlFacebookLayout.setHorizontalGroup(
+            pnlFacebookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFacebookLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblFabLabLocationFacebookId)
+                .addGap(18, 18, 18)
+                .addComponent(txtfFabLabLocationFacebookId, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        pnlFacebookLayout.setVerticalGroup(
+            pnlFacebookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFacebookLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlFacebookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblFabLabLocationFacebookId)
+                    .addComponent(txtfFabLabLocationFacebookId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(127, Short.MAX_VALUE))
+        );
+
+        generalTab.addTab("Facebook", pnlFacebook);
+
         btOk.setText("OK");
         btOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -296,8 +331,11 @@ public class PreferencesDialog extends javax.swing.JDialog
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lbFilenamesForJobs;
+    private javax.swing.JLabel lblFabLabLocationFacebookId;
     private javax.swing.JLabel lblLasercutterTags;
     private javax.swing.JLabel lblSupportedExtensions;
+    private javax.swing.JPanel pnlFacebook;
+    private javax.swing.JTextField txtfFabLabLocationFacebookId;
     private javax.swing.JTextField txtfLasercutterTags;
     private javax.swing.JTextField txtfSupportedExtensions;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
