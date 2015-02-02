@@ -61,6 +61,8 @@ import com.t_oster.visicut.model.graphicelements.psvgsupport.ParametricPlfPart;
 import com.t_oster.visicut.model.mapping.MappingSet;
 import com.tur0kk.thingiverse.ThingiverseManager;
 import com.tur0kk.SocialPlatformIcon;
+import com.tur0kk.facebook.FacebookManager;
+import com.tur0kk.facebook.gui.FacebookDialog;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FileDialog;
@@ -117,6 +119,7 @@ public class MainView extends javax.swing.JFrame
   private static MainView instance = null;
   private ResourceBundle bundle = java.util.ResourceBundle.getBundle("com/t_oster/visicut/gui/resources/MainView");
   private ThingiverseDialog thingiverseDialog = null;
+  private FacebookDialog facebookDialog = null;
   private ParameterPanel parameterPanel = new ParameterPanel();
   
   public static MainView getInstance()
@@ -2485,6 +2488,57 @@ private void jmPreferencesActionPerformed(java.awt.event.ActionEvent evt) {//GEN
     }
   }//GEN-LAST:event_btThingiverseActionPerformed
     
+    private void btFacebookActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btFacebookActionPerformed
+  {//GEN-HEADEREND:event_btFacebookActionPerformed
+    /*
+     * just hide facebookDialog on close to keep state.
+     * if logged out, create new instance of dialog
+     */
+    if(!FacebookManager.getInstance().isLoggedIn() || facebookDialog == null){
+      FacebookManager facebook = FacebookManager.getInstance();
+
+      try
+      {
+        // Try login with persistent access token.
+        boolean loginSuccess = facebook.logIn();
+
+        if (!loginSuccess)
+        {
+          String loginUrl = facebook.initiateAuthentication();
+          String browserCode;
+
+          if (isJavaFxAvailable())
+          {
+            browserCode = browserLoginDialog("Facebook Login", loginUrl, facebook.getRedirectUrlPrefix());
+          }
+          else
+          {
+            // JavaFX not available...
+            System.out.println("JavaFX is not available. Using fallback behavior.");
+            browserCode = systemBrowserLogin("Facebook", loginUrl);
+          }
+
+          facebook.logIn(browserCode);
+        }
+
+        if (facebook.isLoggedIn())
+        {
+          facebookDialog = new FacebookDialog(this, true);
+          facebookDialog.setVisible(true);
+        }
+      }
+      catch (Exception ex)
+      {
+        ex.printStackTrace();
+        this.dialog.showErrorMessage("Unable to load FacebookDialog");
+      }
+    }
+    else // instance available, show thingiverseDialog
+    {
+      facebookDialog.setVisible(true);
+    }
+  }//GEN-LAST:event_btFacebookActionPerformed
+  
   private String browserLoginDialog(String title, String loginUrl, String redirectUrlPrefix) throws Exception
   {
     // JavaFX available, load BrowserLoginDialog dynamically (depends on JavaFX)

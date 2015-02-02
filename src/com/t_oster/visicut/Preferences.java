@@ -355,7 +355,30 @@ public class Preferences
     this.supportedExtensions = extensions;
   }
 
+  // location id of the facebook fablab site
+  private String fabLabLocationFacebookId = "";
 
+  /**
+   * Get the value of fabLabLocationFacebookId
+   *
+   * @return the value of fabLabLocationFacebookId
+   */
+  public String getFabLabLocationFacebookId()
+  {
+    return fabLabLocationFacebookId;
+  }
+
+  /**
+   * Set the value of fabLabLocationFacebookId
+   *
+   * @param fabLabLocationFacebookId new value of fabLabLocationFacebookId
+   */
+  public void setFabLabLocationFacebookId(String fabLabLocationFacebookId)
+  {
+    this.fabLabLocationFacebookId = fabLabLocationFacebookId;
+  }
+
+  
   @Override
   public Preferences clone()
   {
@@ -384,7 +407,8 @@ public class Preferences
     result.useFilenamesForJobs = useFilenamesForJobs;
     result.supportedExtensions = supportedExtensions;
     result.laserCutterTags = laserCutterTags;
-   
+    result.fabLabLocationFacebookId = fabLabLocationFacebookId;
+    
     return result;
   }
 }
