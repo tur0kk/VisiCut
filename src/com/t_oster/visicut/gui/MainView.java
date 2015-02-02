@@ -119,7 +119,6 @@ public class MainView extends javax.swing.JFrame
   private static MainView instance = null;
   private ResourceBundle bundle = java.util.ResourceBundle.getBundle("com/t_oster/visicut/gui/resources/MainView");
   private ThingiverseDialog thingiverseDialog = null;
-  private FacebookDialog facebookDialog = null;
   private ParameterPanel parameterPanel = new ParameterPanel();
   
   public static MainView getInstance()
@@ -2436,6 +2435,7 @@ private void objectComboBoxChangeHandler(java.awt.event.ItemEvent evt) {//GEN-FI
 
 private void jmPreferencesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPreferencesActionPerformed
   PreferencesDialog pd = new PreferencesDialog(this, true);
+  pd.setLocationRelativeTo(null);
   pd.setPreferences(this.visicutModel1.getPreferences().clone());
   pd.setVisible(true);
   if (pd.getPreferences() != null)
@@ -2488,6 +2488,7 @@ private void jmPreferencesActionPerformed(java.awt.event.ActionEvent evt) {//GEN
         if (thingiverse.isLoggedIn())
         {
           thingiverseDialog = new ThingiverseDialog(this, true);
+          thingiverseDialog.setLocationRelativeTo(null);
           thingiverseDialog.setVisible(true);
         }
       }
@@ -2538,6 +2539,7 @@ private void jmPreferencesActionPerformed(java.awt.event.ActionEvent evt) {//GEN
       if (facebook.isLoggedIn())
       {
         FacebookDialog facebookDialog = new FacebookDialog(this, true);
+        facebookDialog.setLocationRelativeTo(null);
         facebookDialog.setVisible(true);
       }
     }

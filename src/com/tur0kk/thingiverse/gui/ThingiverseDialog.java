@@ -54,7 +54,6 @@ public class ThingiverseDialog extends javax.swing.JDialog
   public ThingiverseDialog(java.awt.Frame parent, boolean modal) throws AccessException, MalformedURLException, IOException
   {
     super(parent, modal);
-    super.setLocationRelativeTo(parent);
     
     // just hide to keep state
     this.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
@@ -789,6 +788,7 @@ public class ThingiverseDialog extends javax.swing.JDialog
   {//GEN-HEADEREND:event_btnMadeOneActionPerformed
     // assume in current list a thing is selected, otherwise button is not enabled
     ThingiverseUploadDialog uploadDialog = new ThingiverseUploadDialog(MainView.getInstance(), true, (Thing)getCurrentTabThingList().getSelectedValue());
+    uploadDialog.setLocationRelativeTo(null);
     uploadDialog.setVisible(true);
   }//GEN-LAST:event_btnMadeOneActionPerformed
 

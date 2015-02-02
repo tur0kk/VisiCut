@@ -25,7 +25,6 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
-import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
 /**
@@ -42,7 +41,6 @@ public class FacebookDialog extends javax.swing.JDialog
   /** Creates new form FacebookDialog */
   public FacebookDialog(java.awt.Frame parent, boolean modal){
     super(parent, modal);
-    super.setLocationRelativeTo(parent);
     
     initComponents();
     
