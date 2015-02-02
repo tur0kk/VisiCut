@@ -98,6 +98,7 @@ public class ThingiverseDialog extends javax.swing.JDialog
     lstLikedThing.setModel(new DefaultListModel());
     lstCollectionThing.setModel(new DefaultListModel());
     lstSearchThing.setModel(new DefaultListModel());
+    initCollectionDropdown();
     actionMyThings();
     actionLiked();
     actionCollection();
@@ -297,6 +298,26 @@ public class ThingiverseDialog extends javax.swing.JDialog
     });
   }
   
+  private void initCollectionDropdown(){
+    // get collections
+    ThingiverseManager thingiverse = ThingiverseManager.getInstance();
+    List<ThingCollection> collections = thingiverse.getMyCollections();
+
+    // init combobox by hand, because it also is added to the header by hand
+    // fill combobox with names of collections
+    ThingCollectionComboboxModel comboboxModel = new ThingCollectionComboboxModel(collections);
+    cbCollection.setModel(comboboxModel);
+    cbCollection.setRenderer(new ThingCollectionComboboxRenderer()); // display just the name of a collection
+    cbCollection.addItemListener(new ItemListener() { // listen for item changes and display collection
+      public void itemStateChanged(ItemEvent e)
+      {
+        if (e.getStateChange() == ItemEvent.SELECTED) {
+          actionCollection();
+        }
+      }
+    }); // end listener
+  }
+  
   private void initCollectionTab(){
     // load things asynchronously
     new Thread(new Runnable() {
@@ -316,24 +337,7 @@ public class ThingiverseDialog extends javax.swing.JDialog
           }
         });
         
-        // get collections
-        ThingiverseManager thingiverse = ThingiverseManager.getInstance();
-        List<ThingCollection> collections = thingiverse.getMyCollections();
-        
-        // init combobox by hand, because it also is added to the header by hand
-        // fill combobox with names of collections
-        
-        ThingCollectionComboboxModel comboboxModel = new ThingCollectionComboboxModel(collections);
-        cbCollection.setModel(comboboxModel);
-        cbCollection.setRenderer(new ThingCollectionComboboxRenderer()); // display just the name of a collection
-        cbCollection.addItemListener(new ItemListener() { // listen for item changes and display collection
-          public void itemStateChanged(ItemEvent e)
-          {
-            if (e.getStateChange() == ItemEvent.SELECTED) {
-              actionCollection();
-            }
-          }
-        }); // end listener
+        initCollectionDropdown();
         
         actionCollection(); // starts own non gui thread, needed here to ensure that gui set up is ready       
       }
@@ -389,6 +393,7 @@ public class ThingiverseDialog extends javax.swing.JDialog
         {
           public void run()
           {   
+            lstSearchThing.setModel(new DefaultListModel()); // clear thing file list so that list is cleared if no things were found
             lblSearch.setIcon(LoadingIcon.get(LoadingIcon.CIRCLEBALL_SMALL));
           }
         });
@@ -498,7 +503,7 @@ public class ThingiverseDialog extends javax.swing.JDialog
 
         spltpMyThings.setRightComponent(sclpMyThingsThing);
 
-        tpLists.addTab("MyThings", spltpMyThings);
+        tpLists.addTab(resourceMap.getString("spltpMyThings.TabConstraints.tabTitle"), spltpMyThings); // NOI18N
 
         spltpLiked.setName("spltpLiked"); // NOI18N
 
